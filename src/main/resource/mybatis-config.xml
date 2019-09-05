@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--<setting name="safeRowBoundsEnable" value="true"/>-->
+        <!-- sql缓存 -->
+        <!--<setting name="cacheEnable" value="false" />-->
+        <!-- 自动生成sql的key.在插入时会自动生成主键 -->
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+
+    <!-- 配置别名 -->
+    <!--<typeAliases>
+
+        <typeAlias type="com.mmall.model" alias=""/>
+    </typeAliases>-->
+
+    <!--<plugins>
+        <plugin interceptor=""></plugin>
+    </plugins>-->
+
+    <!-- 当sql查询出来的结果无法转换为本地的实体类时,可以将结果转换为本地的对象 -->
+    <!--<typeHandlers>
+
+    </typeHandlers>-->
+
+</configuration>

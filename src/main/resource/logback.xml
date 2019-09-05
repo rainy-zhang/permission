@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- scan为true时配置文件如果发生改变那么将会重新加载,scanPeriod设置配置文件是否有修改的时间间隔 -->
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset><!-- 设置字符集 -->
+        </encoder>
+    </appender>
+
+    <!-- 根据设置对日志文件进行压缩,归档的appender -->
+   <!-- <appender name="permission" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        &lt;!&ndash; 指定日志文件的目录 &ndash;&gt;
+        <file>${catalina.home}/logs/permission.log</file>
+        &lt;!&ndash; 根据时间来做日志压缩 &ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            &lt;!&ndash; 压缩文件的格式 &ndash;&gt;
+            <FileNamePattern>${catalina.home}/logs/permission.%d{yyyy-MM-dd}.log.gz</FileNamePattern>
+        </rollingPolicy>
+        &lt;!&ndash; 定义这个appender的日志输出格式 &ndash;&gt;
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    &lt;!&ndash; 可以根据类名定义多个logger. 可以指定appender定义不同的输出 &ndash;&gt;
+    <logger name="" level="INFO">
+        <appender-ref ref="permission"/>
+    </logger>-->
+
+    <!-- trace < debug < info < warn < error -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

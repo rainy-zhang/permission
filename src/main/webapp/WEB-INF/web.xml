@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- Spring beans 配置文件所在目录 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
+  <!--Spring MVC 配置-->
+  <servlet>
+    <servlet-name>spring</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>/</url-pattern> <!-- 要拦截的url.   /只会拦截: /login,/hello. 不拦截*.css,*.js,*.png -->
+  </servlet-mapping>
+
+  <!-- encoding -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param> 
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern><!-- /* 会拦截所有请求 -->
+  </filter-mapping>
+
+  <!-- 配置登录过滤器 -->
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.mmall.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <!-- 指定需要过滤的请求 -->
+    <url-pattern>/sys/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 配置权限拦截的过滤器 -->
+  <filter>
+    <filter-name>aclControlFilter</filter-name>
+    <filter-class>com.mmall.filter.AclControlFilter</filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>exclusionUrls</param-name>
+      <param-value>/sys/user/noAuth.page,/login.page</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>aclControlFilter</filter-name>
+    <url-pattern>/sys/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+
+  <!--druid相关-->
+  <servlet>
+    <servlet-name>DruidStatServlet</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+    <!-- 配置登录druid的用户名和密码 -->
+    <init-param>
+      <param-name>loginUsername</param-name>
+      <param-value>druid</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loginPassword</param-name>
+      <param-value>druid</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DruidStatServlet</servlet-name>
+    <url-pattern>/sys/druid/*</url-pattern><!-- 定义druid请求路径 -->
+  </servlet-mapping>
+  <!-- 配置druid拦截哪些请求 -->
+  <filter>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+    <!-- 指定不拦截的资源 -->
+    <init-param>
+      <param-name>exclusions</param-name>
+      <param-value>*.js,*.css,*.jpg,*.png,*.ico,*.gif,/sys/druid/*</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 配置 访问项目时如果不指定目录默认访问的目录 -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+
+</web-app>

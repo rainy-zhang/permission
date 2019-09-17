@@ -31,7 +31,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.mmall.model.SysAclModule" >
+  <insert id="insert" parameterType="com.mmall.model.SysAclModule" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl_module (id, name, parent_id, level, seq, status, remark, operator, operator_time, operator_ip)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{level,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -39,7 +39,7 @@
       #{operatorIp,jdbcType=VARCHAR})
   </insert>
 
-  <insert id="insertSelective" parameterType="com.mmall.model.SysAclModule" >
+  <insert id="insertSelective" parameterType="com.mmall.model.SysAclModule" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl_module
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

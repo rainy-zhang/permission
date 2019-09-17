@@ -38,6 +38,8 @@ public class SysRoleService {
     private SysRoleAclMapper roleAclMapper;
     @Resource
     private SysUserMapper userMapper;
+    @Resource
+    private SysLogService logService;
 
     /**
      * 保存角色
@@ -49,6 +51,7 @@ public class SysRoleService {
         }
         SysRole role = setRole(param);
         roleMapper.insertSelective(role);
+        logService.saveRoleLog(null, role);
     }
 
     /**
@@ -63,6 +66,7 @@ public class SysRoleService {
         Preconditions.checkNotNull(beforeRole, "待更新的角色不存在!");
         SysRole afterRole = setRole(param);
         roleMapper.updateByPrimaryKeySelective(afterRole);
+        logService.saveRoleLog(beforeRole, afterRole);
     }
 
     /**

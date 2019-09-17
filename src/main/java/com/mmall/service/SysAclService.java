@@ -28,6 +28,8 @@ public class SysAclService {
 
     @Resource
     private SysAclMapper aclMapper;
+    @Resource
+    private SysLogService logService;
 
     /**
      * 新增权限
@@ -38,6 +40,7 @@ public class SysAclService {
         SysAcl acl = setAcl(param);
 
         aclMapper.insertSelective(acl);
+        logService.saveAclLog(null, acl);
     }
 
     /**
@@ -51,6 +54,7 @@ public class SysAclService {
         SysAcl after = setAcl(param);
 
         aclMapper.updateByPrimaryKeySelective(after);
+        logService.saveAclLog(before, after);
     }
 
     //展示权限点的分页列表

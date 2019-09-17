@@ -30,6 +30,8 @@ public class SysAclModuleService {
     private SysAclModuleMapper aclModuleMapper;
     @Resource
     private SysAclMapper aclMapper;
+    @Resource
+    private SysLogService logService;
 
     /**
      * 新增权限模块
@@ -41,6 +43,7 @@ public class SysAclModuleService {
         }
         SysAclModule sysAclModule = setAclModule(param);
         aclModuleMapper.insertSelective(sysAclModule);
+        logService.saveAclModuleLog(null, sysAclModule);
     }
 
     /**
@@ -56,6 +59,7 @@ public class SysAclModuleService {
             throw new ParamException("权限模块中存在权限点,无法删除");
         }
         aclModuleMapper.deleteByPrimaryKey(id);
+        logService.saveAclModuleLog(aclModule, null);
     }
 
     /**
@@ -71,6 +75,7 @@ public class SysAclModuleService {
         SysAclModule after = setAclModule(param);
 
         updateWithChild(before, after);
+        logService.saveAclModuleLog(before, after);
     }
 
     //更新权限模块及其所有子权限模块

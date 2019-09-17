@@ -151,6 +151,7 @@
             }
 
             function renderLogListAndPage(result, url) {
+                console.log(result);
                 if (result.ret) {
                     if (result.data.total > 0) {
                         var rendered = Mustache.render(logListTemplate, {
@@ -173,7 +174,7 @@
                             },
                             "showDate" :function () {
                                 return function (text, render) {
-                                    return new Date(this.operateTime).Format("yyyy-MM-dd hh:mm:ss");
+                                    return new Date(this.operatorTime).Format("yyyy-MM-dd hh:mm:ss");
                                 }
                             },
                             "showOldValue": function () {

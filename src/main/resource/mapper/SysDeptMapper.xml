@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.mmall.model.SysDept" >
+  <insert id="insert" parameterType="com.mmall.model.SysDept" keyProperty="id" useGeneratedKeys="true">
     insert into sys_dept (id, name, parent_id, 
       level, seq, remark, 
       operator, operator_time, operator_ip
@@ -40,7 +40,7 @@
       )
   </insert>
 
-  <insert id="insertSelective" parameterType="com.mmall.model.SysDept" >
+  <insert id="insertSelective" parameterType="com.mmall.model.SysDept" keyProperty="id" useGeneratedKeys="true">
     insert into sys_dept
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

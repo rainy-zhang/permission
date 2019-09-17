@@ -6,6 +6,7 @@ import com.mmall.dao.SysDeptMapper;
 import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysDept;
+import com.mmall.model.SysLog;
 import com.mmall.param.DeptParam;
 import com.mmall.util.BeanValidator;
 import com.mmall.util.IpUtil;
@@ -31,6 +32,8 @@ public class SysDeptService {
     private SysDeptMapper deptMapper;
     @Resource
     private SysUserMapper userMapper;
+    @Resource
+    private SysLogService logService;
 
     /**
      * 新增部门
@@ -42,6 +45,7 @@ public class SysDeptService {
         }
         SysDept sysDept = setDept(deptParam);
         deptMapper.insertSelective(sysDept);
+        logService.saveDeptLog(null, sysDept);
     }
 
     /**
@@ -57,6 +61,7 @@ public class SysDeptService {
             throw new ParamException("部门下存在用户,无法删除");
         }
         deptMapper.deleteByPrimaryKey(id);
+        logService.saveDeptLog(dept, null);
     }
 
     /**
@@ -72,6 +77,7 @@ public class SysDeptService {
         Preconditions.checkNotNull(beforeDept, "待更新的部门不存在!");
         SysDept afterDept = setDept(deptParam);
         updateWithChild(beforeDept, afterDept);
+        logService.saveDeptLog(beforeDept, afterDept);
     }
 
     //更新部门及其所有子部门

@@ -33,7 +33,7 @@ public class ApplicationContextHelper implements ApplicationContextAware {
     /**
      * 获取Application上下文中的bean
      */
-    public static <T> T poopBean(String name, Class<T> clazz) {
+    public static <T> T popBean(String name, Class<T> clazz) {
         if(applicationContext == null){
             return null;
         }

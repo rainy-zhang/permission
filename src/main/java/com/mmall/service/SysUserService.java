@@ -31,6 +31,8 @@ public class SysUserService {
 
     @Resource
     private SysUserMapper userMapper;
+    @Resource
+    private SysLogService logService;
 
     /**
      * 新增用户
@@ -48,6 +50,7 @@ public class SysUserService {
         String encryptedPassword = MD5Util.encrypt(password);
         SysUser user = setUser(userParam);
         userMapper.insertSelective(user);
+        logService.saveUserLog(null, user);
     }
 
     /**
@@ -60,6 +63,7 @@ public class SysUserService {
         Preconditions.checkNotNull(beforUser, "待更新的用户不存在!");
         SysUser afterUser = setUser(userParam);
         userMapper.updateByPrimaryKeySelective(afterUser);
+        logService.saveUserLog(beforUser, afterUser);
     }
 
 

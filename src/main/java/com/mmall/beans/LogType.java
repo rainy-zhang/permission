@@ -2,7 +2,7 @@ package com.mmall.beans;
 
 /**
  * @Author: zhangyu
- * @Description:
+ * @Description: 定义日志类型
  * @Date: in 2019/9/8 10:35
  */
 public interface LogType {

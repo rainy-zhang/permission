@@ -35,7 +35,7 @@
 <script src="/js/respond.min.js"></script>
 <![endif]-->
 
-<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/jquery-3.5.1.min.js"></script>
 <script src="/assets/js/jquery-ui.min.js"></script>
 <script src="/assets/js/jquery.gritter.min.js"></script>
 <script src="/assets/js/chosen.jquery.min.js"></script>
